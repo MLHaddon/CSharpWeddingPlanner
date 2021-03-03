@@ -1,0 +1,31 @@
+@model Wedding
+<div class="container">
+  <div class="d-flex flex-row justify-content-between">
+    <h1>@Model.WedderOne & @Model.WedderTwo's Wedding</h1>
+    <div class="d-flex flex-row align-items-center">
+      <a href="/Dashboard" class="m-2">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <h2>@Model.Date</h2>
+    <div class="d-flex flex-row justify-content-between">
+      <ul class="list list-unstyled">
+        <h2>Guests: </h2>
+        @foreach (ManyToMany guest in ViewBag.Guests)
+        {
+          <li>@guest.User.FirstName @guest.User.LastName</li>
+        }
+      </ul>
+      <iframe
+        width="600"
+        height="450"
+        style="border:1"
+        loading="lazy"
+        allowfullscreen
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD2xTvz1DE5syb60Edz92hGulTsSqtiknE
+          &q=@ViewBag.Address">
+      </iframe>
+    </div>
+  </div>
+</div>

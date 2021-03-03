@@ -1,0 +1,28 @@
+@model Wedding
+<div class="container">
+  <div class="d-flex flex-row justify-content-between">
+    <h1>Plan A Wedding!</h1>
+    <div class="d-flex flex-row align-items-center">
+      <a href="/Dashboard" class="m-2">Dashboard</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+  <form action="/Weddings/Create" method="post">
+    <div class="rounded p-2 bg-info">
+      <input type="text" asp-for="WedderOne" class="form-control" placeholder="Wedder One">
+      <span class="text-danger" asp-validation-for="WedderOne"></span>
+
+      <input type="text" asp-for="WedderTwo" class="form-control" placeholder="Wedder Two">
+      <span class="text-danger" asp-validation-for="WedderTwo"></span>
+
+      <input type="date" asp-for="Date" class="form-control">
+      <span class="text-danger" asp-validation-for="Date"></span>
+
+      <input type="text" asp-for="Address" class="form-control" placeholder="Address">
+      <span class="text-danger" asp-validation-for="Address"></span>
+
+      <input type="hidden" asp-for="Owner" value="@ViewBag.User">
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,59 @@
+@model List<Wedding>
+<div class="container">
+  <div class="d-flex flex-row justify-content-between align-items-center">
+    <h1>Welcome to the Wedding Planner App</h1>
+    <a href="/logout">Logout</a>
+  </div>
+  <table class="table table-bordered">
+    <thead class="thead thead-dark">
+      <tr>
+        <th>Wedding</th>
+        <th>Date</th>
+        <th>Guests</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (Wedding wedding in Model)
+      {
+        <tr>
+          <td><a href="/Weddings/@wedding.WeddingID">@wedding.WedderOne & @wedding.WedderTwo</a></td>
+          <td>@wedding.Date</td>
+          <td>@wedding.Guests.Count</td>
+          @if (wedding.Owner != ViewBag.User)
+          {
+            int count = 0;
+            @foreach (ManyToMany guest in wedding.Guests)
+            {
+              if (guest.User == ViewBag.User)
+              {
+                count++;
+              }
+            }
+            if (count == 0)
+            {
+              <td><form action="/Weddings/@wedding.WeddingID/RSVP" method="post">
+                      <button type="submit" class="btn btn-success">RSVP</button>
+                    </form></td>
+            }
+            else
+            {
+              <td><form action="/Weddings/@wedding.WeddingID/UNRSVP" method="post">
+                      <button type="submit" class="btn btn-danger">Un-RSVP</button>
+                    </form></td>
+            }
+          }
+          else
+          {
+            <td><form action="/Weddings/@wedding.WeddingID/Delete" method="post">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form></td>
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end">
+    <a href="/Weddings/Plan"><button class="btn btn-success">Plan a Wedding</button></a>
+  </div>
+</div>
